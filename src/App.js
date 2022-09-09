@@ -1,25 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import Socket from './components/Socket';
+import { useEffect, useState } from 'react'
+import { io } from 'socket.io-client'
 
-function App() {
+const App = () => {
+  const [name, setName] = useState('')
+  const [registered, setRegistered] = useState(false)
+
+  const register = e => {
+    e.preventDefault()
+    if(name !== '') {
+      setRegistered(true)
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <form onSubmit={register}>
+        <label>Insert your name</label>
+        <input value={name} onChange={e => setName(e.target.value)}/>
+        <button>Ir al chat</button>
+      </form>
     </div>
-  );
+  )
 }
 
 export default App;
